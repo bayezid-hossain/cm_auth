@@ -1,9 +1,9 @@
 const bcrypt = require('bcryptjs');
 const cryptPassword = async function (next) {
-  if (!this.isModified('pin')) {
+  if (!this.isModified('password')) {
     next();
   }
-  this.pin = await bcrypt.hash(this.pin, 10);
+  this.password = await bcrypt.hash(this.password, 10);
 };
 
 module.exports = cryptPassword;

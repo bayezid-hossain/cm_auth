@@ -27,9 +27,23 @@ const UserSchema = new mongoose.Schema({
       message: 'Please Enter a valid Phone Number',
     },
   },
+  password: {
+    type: String,
+    required: [true, 'Please enter your password'],
+    minlength: [8, 'Password should be minimum 8 characters long'],
+
+    select: false,
+  },
+  email: {
+    type: String,
+    required: [true, 'Please Enter Your Email'],
+    maxlength: [30, 'Email cannot exceed 30 letters'],
+    unique: true,
+    validate: [validator.isEmail, 'Please enter a valid email'],
+  },
   role: {
     type: String,
-    default: 'passenger',
+    default: 'distributor',
   },
   otp: String,
   otpExpire: Date,
@@ -58,8 +72,8 @@ UserSchema.methods.getJWTToken = function () {
 };
 
 //Compare Password
-UserSchema.methods.comparepin = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.pin);
+UserSchema.methods.comparePassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
 };
 
 module.exports = mongoose.model('user', UserSchema);

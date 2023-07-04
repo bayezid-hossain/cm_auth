@@ -4,7 +4,7 @@ const {
   verifyOtp,
   logout,
   loginUser,
-  registerBusOwner,
+  registerAuthority,
 } = require('../controllers/authController');
 const {
   authorizeRoles,
@@ -18,13 +18,13 @@ const {
 const router = express.Router();
 
 router
-  .route('/api/v1/auth/busowner/login')
-  .post(setUserType('busOwner'), loginUser);
+  .route('/api/v1/auth/authority/login')
+  .post(setUserType('authority'), loginUser);
 router
-  .route('/api/v1/auth/driver/login')
-  .post(setUserType('driver'), loginUser);
+  .route('/api/v1/auth/distributor/login')
+  .post(setUserType('distributor'), loginUser);
 
-router.route('/api/v1/auth/busowner/register').post(registerBusOwner);
+router.route('/api/v1/auth/authority/register').post(registerAuthority);
 router.route('/api/v1/auth/admin/login').post(setUserType('admin'), loginUser);
 router.route('/api/v1/auth/verify').post(isAuthenticatedUser, verifyOtp);
 router.route('/api/v1/auth/logout').get(isLoggedInUser, logout);

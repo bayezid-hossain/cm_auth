@@ -14,7 +14,7 @@ exports.sendOtp = (number, otp) => {
 
   client.messages
     .create({
-      body: `Your GO Verification cod is ${otp}`,
+      body: `Your CM_CityCorporation Verification code is ${otp}`,
       to: `+88${number}`, // Text this number
       from: '+12055579134', // From a valid Twilio number
     })

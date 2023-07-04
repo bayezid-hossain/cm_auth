@@ -1,4 +1,8 @@
 const winston = require('winston');
+const dotenv = require('dotenv');
+
+//config
+dotenv.config({ path: __dirname + '/config/config.env' });
 require('winston-mongodb');
 const { createLogger, format, transports } = require('winston');
 const { combine, splat, timestamp, printf } = format;
@@ -20,7 +24,7 @@ const logger = createLogger({
     warning: 2,
     error: 3,
   },
-  defaultMeta: { service: 'busowner-service' },
+  defaultMeta: { service: 'auth-service' },
   transports: [
     new transports.MongoDB({
       format: combine(
@@ -30,8 +34,8 @@ const logger = createLogger({
         format.metadata()
       ),
       level: 'info',
-      db: process.env.DB_URI_GLOBAL,
-      collection: 'logs_busowner',
+      db: process.env.DB_URI_CM,
+      collection: 'logs_auth',
       options: { useUnifiedTopology: true },
     }),
     // new transports.Console({
@@ -54,8 +58,8 @@ const logger = createLogger({
         format.metadata()
       ),
       level: 'error',
-      db: process.env.DB_URI_GLOBAL,
-      collection: 'logs_busowner',
+      db: process.env.DB_URI_CM,
+      collection: 'logs_auth',
       options: { useUnifiedTopology: true },
     }),
     new transports.MongoDB({
@@ -66,8 +70,8 @@ const logger = createLogger({
         format.metadata()
       ),
       level: 'warning',
-      db: process.env.DB_URI_GLOBAL,
-      collection: 'logs_busowner',
+      db: process.env.DB_URI_CM,
+      collection: 'logs_auth',
       options: { useUnifiedTopology: true },
     }),
   ],
